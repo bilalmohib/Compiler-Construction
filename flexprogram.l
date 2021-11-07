@@ -7,7 +7,8 @@
 let [a-zA-Z]
 digit [0-9]
 del [ \t]
-punctuation [,{}()]
+punctuation [,{}()[];.]
+operator []
 
 %%
 
@@ -19,7 +20,7 @@ punctuation [,{}()]
 
 "+"|"-" {printf("Operator: %s \n",yytext);}
 
-{punctuation}({})
+{punctuation}+ {printf("<PUN, %s \n",yytext);}
 
 {let}({let}|{digit})* {printf("Token ID: %s \n",yytext);}
 
