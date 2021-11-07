@@ -6,8 +6,11 @@
 
 let [a-zA-Z]
 digit [0-9]
+del [ \t]
 
 %%
+
+{del}+
 
 {let}({let}|{digit})* {printf("Token ID \n");}
 
