@@ -4,11 +4,13 @@
 
 %}
 
-let [a-zA-Z]
+letter [a-zA-Z]
 digit [0-9]
 del [ \t]
 punctuation [,{}()[];.]
-operator []
+singlelinecomment [//]
+multi_start [/*]
+multi_last [*/]
 
 %%
 
@@ -18,15 +20,15 @@ operator []
 
 "if"|"while"|"for"|"break"|"switch"|"case"|"main"|"cout" {printf("<KW, %s \n",yytext);}
 
-"+"|"-" {printf("Operator: %s \n",yytext);}
+"&"|"!"|"--"|"+"|"++"|"*"|"=="|"<="|"=>"|"<"|">"|"-" {printf("<OP, %s \n",yytext);}
 
 {punctuation}+ {printf("<PUN, %s \n",yytext);}
 
-{let}({let}|{digit})* {printf("Token ID: %s \n",yytext);}
+{letter}({letter}|{digit})* {printf("Token ID: %s \n",yytext);}
 
 {digit}+ {printf("Token IntLit: %s \n",yytext);}
 
-.  {printf("Error \n"); return 0;}
+{singlelinecomment}({multi_start}({letter}|{digit}){multi_last})  {printf("<Comment, %s \n",yytext);}
 
 %%
 
