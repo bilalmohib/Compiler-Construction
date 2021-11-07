@@ -7,7 +7,6 @@
 letter [a-zA-Z]
 digit [0-9]
 del [ \t]
-punctuation [,{}()[];.]
 singlelinecomment [//]
 multi_start [/*]
 multi_last [*/]
@@ -22,13 +21,15 @@ multi_last [*/]
 
 "&"|"!"|"--"|"+"|"++"|"*"|"=="|"<="|"=>"|"<"|">"|"-" {printf("<OP, %s \n",yytext);}
 
-{punctuation}+ {printf("<PUN, %s \n",yytext);}
+","|"{"|"}"|"("|")"|"["|"]"|";"|"." {printf("<PUN, %s> \n",yytext);}
 
-{letter}({letter}|{digit})* {printf("ID, %s \n",yytext);}
+{letter}({letter}|{digit})* {printf("<ID, %s> \n",yytext);}
 
-{digit}+ {printf("<IntegerLiteral, %s \n",yytext);}
+{digit}+ {printf("<IntegerLiteral, %s> \n",yytext);}
 
-{singlelinecomment}({multi_start}({letter}|{digit}){multi_last})  {printf("<Comment, %s \n",yytext);}
+({multi_start}({letter}|{digit}){multi_last})  {printf("<Multi Comment, %s> \n",yytext);}
+
+{singlelinecomment} {printf("<Single Comment, %s> \n",yytext);}
 
 %%
 
