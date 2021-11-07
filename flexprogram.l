@@ -12,9 +12,13 @@ del [ \t]
 
 {del}+
 
-{let}({let}|{digit})* {printf("Token ID \n");}
+"if"|"else"|"int"|"main" {printf("KW: %s \n",yytext);}
 
-{digit}+ {printf("Token IntLit \n");}
+"+"|"-" {printf("Operator: %s \n",yytext);}
+
+{let}({let}|{digit})* {printf("Token ID: %s \n",yytext);}
+
+{digit}+ {printf("Token IntLit: %s \n",yytext);}
 
 .  {printf("Error \n"); return 0;}
 
