@@ -16,7 +16,7 @@ multi_last [*/]
 
 {del}+
 
-"int"|"float"|"double"|"char" {printf("<>DATATYPE, %s \n",yytext);}
+"int"|"float"|"double"|"char"|"string" {printf("<>DATATYPE, %s \n",yytext);}
 
 "if"|"while"|"for"|"break"|"switch"|"case"|"main"|"cout" {printf("<KW, %s \n",yytext);}
 
@@ -24,9 +24,9 @@ multi_last [*/]
 
 {punctuation}+ {printf("<PUN, %s \n",yytext);}
 
-{letter}({letter}|{digit})* {printf("Token ID: %s \n",yytext);}
+{letter}({letter}|{digit})* {printf("ID, %s \n",yytext);}
 
-{digit}+ {printf("Token IntLit: %s \n",yytext);}
+{digit}+ {printf("<IntegerLiteral, %s \n",yytext);}
 
 {singlelinecomment}({multi_start}({letter}|{digit}){multi_last})  {printf("<Comment, %s \n",yytext);}
 
