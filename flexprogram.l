@@ -7,14 +7,19 @@
 let [a-zA-Z]
 digit [0-9]
 del [ \t]
+punctuation [,{}()]
 
 %%
 
 {del}+
 
-"if"|"else"|"int"|"main" {printf("KW: %s \n",yytext);}
+"int"|"float"|"double"|"char" {printf("<>DATATYPE, %s \n",yytext);}
+
+"if"|"while"|"for"|"break"|"switch"|"case"|"main"|"cout" {printf("<KW, %s \n",yytext);}
 
 "+"|"-" {printf("Operator: %s \n",yytext);}
+
+{punctuation}({})
 
 {let}({let}|{digit})* {printf("Token ID: %s \n",yytext);}
 
